@@ -18,8 +18,20 @@ df = pd.read_csv("nato_phonetic_alphabet.csv")
 new_dictionary = {row.letter: row.code for (index, row) in df.iterrows()}
 
 # Todo 2. Create a list of the phonetic code words from a word that the user inputs
-word = input(f"What word do you want to spell: ").upper()
-spell = [new_dictionary[letter] for letter in word]
-print(spell)
+
+def generate_phonetic():
+    word = input(f"What word do you want to spell: ").upper()
+    # it_not_a_word = [True for letter in word if not letter.isalpha()]
+    # if it_not_a_word:
+    #     raise ValueError("This is not a word")
+    try:
+        spell = [new_dictionary[letter] for letter in word]
+    except KeyError:
+        print("Sorry, only letters in the alphabet please.")
+        generate_phonetic()
+    else:
+        print(spell)
+
+generate_phonetic()
 
 
